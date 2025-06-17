@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CvController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,4 +46,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('journal');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth'])->group(function () {
+    Route::get('/upload-cv', [CvController::class, 'uploadForm'])->name('cv.uploadForm');
+    Route::post('/upload-cv', [CvController::class, 'upload'])->name('cv.upload');
+});
+
+Route::get('/cv', [CvController::class, 'view'])->name('cv.view');
+
+require __DIR__ . '/auth.php';
