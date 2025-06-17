@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CvController;
+use App\Http\Controllers\CertificateController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,5 +54,15 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/cv', [CvController::class, 'view'])->name('cv.view');
+
+// Admin-only upload
+Route::middleware(['auth'])->group(function () {
+    Route::get('/upload-certificate', [CertificateController::class, 'uploadForm'])->name('cert.uploadForm');
+    Route::post('/upload-certificate', [CertificateController::class, 'upload'])->name('cert.upload');
+});
+
+// Public viewer
+Route::get('/certificates', [CertificateController::class, 'list'])->name('cert.view');
+Route::get('/certificates/file/{filename}', [CertificateController::class, 'file'])->name('cert.file');
 
 require __DIR__ . '/auth.php';
