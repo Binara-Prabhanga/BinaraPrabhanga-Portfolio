@@ -29,10 +29,15 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Set permissions (optional but good for production)
-RUN chown -R www-data:www-data /var/www
+# Set permissions
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 775 storage bootstrap/cache
+
+# Rebuild Laravel caches
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
 
 # Expose port and launch
 EXPOSE 8000
-RUN chmod -R 775 storage bootstrap/cache
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
