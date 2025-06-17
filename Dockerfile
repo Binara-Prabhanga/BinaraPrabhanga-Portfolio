@@ -34,4 +34,5 @@ RUN chown -R www-data:www-data /var/www
 
 # Expose port and launch
 EXPOSE 8000
+RUN chmod -R 775 storage bootstrap/cache
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
