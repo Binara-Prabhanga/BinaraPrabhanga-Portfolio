@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: binara-backend
+    env: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://binara-backend.onrender.com
+      # Add DB vars later via dashboard
