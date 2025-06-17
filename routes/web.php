@@ -39,4 +39,10 @@ Route::get('/journal', function () {
     return Inertia::render('Journal');
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/journal', function () {
+        return Inertia::render('Journal');
+    })->name('journal');
+});
+
 require __DIR__.'/auth.php';
