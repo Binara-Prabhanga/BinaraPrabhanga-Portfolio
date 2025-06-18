@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    base: 'https://binaraprabhanga-portfolio.onrender.com/build/', 
+    base: '/build/', 
     plugins: [
         laravel({
             input: 'resources/js/app.js',
