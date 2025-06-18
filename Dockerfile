@@ -37,8 +37,9 @@ RUN chown -R www-data:www-data /var/www \
 # Expose port
 EXPOSE 8000
 
-# Run Laravel + rebuild caches at runtime
-CMD php artisan config:clear \
+# CMD to run migrations + rebuild cache + serve app
+CMD php artisan migrate --force \
+    && php artisan config:clear \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache \
