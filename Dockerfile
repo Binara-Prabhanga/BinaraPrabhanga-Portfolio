@@ -1,5 +1,6 @@
 # Use official PHP image with necessary extensions
 FROM php:8.1.10-fpm
+
 # Set working directory
 WORKDIR /var/www
 
@@ -33,11 +34,12 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
 
-# Rebuild Laravel caches
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
-
-# Expose port and launch
+# Expose port
 EXPOSE 8000
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+
+# Run Laravel + rebuild caches at runtime
+CMD php artisan config:clear \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache \
+    && php artisan serve --host=0.0.0.0 --port=8000
