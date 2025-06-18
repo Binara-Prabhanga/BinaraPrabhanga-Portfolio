@@ -35,8 +35,8 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 # Install Node dependencies and build Vite assets
 RUN npm install && npm run build
 
-# COPY Vite build output to public directory (important!)
-RUN cp -r public/build public_html/build
+# # COPY Vite build output to public directory (important!)
+# RUN cp -r public/build public_html/build
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www && chmod -R 775 storage bootstrap/cache
