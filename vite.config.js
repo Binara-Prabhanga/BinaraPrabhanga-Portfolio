@@ -3,20 +3,10 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    base: '/build/', // Keep this if you're serving from /public/build
-    server: {
-        https: true, // <- This line is optional for local dev, not needed in production
-    },
-    build: {
-        manifest: true,
-        outDir: 'public/build',
-        rollupOptions: {
-            input: 'resources/js/app.js',
-        },
-    },
+    base: 'https://binaraprabhanga-portfolio.onrender.com/build/', // This line is critical
     plugins: [
         laravel({
-            input: ['resources/js/app.js'],
+            input: 'resources/js/app.js',
             refresh: true,
         }),
         vue({
